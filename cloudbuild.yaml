@@ -32,3 +32,7 @@ steps:
   args:
     - '-c'  # Execute a shell command
     - echo "https://storage.googleapis.com/vierageorge-pw-poc/$BUILD_ID/playwright-report/index.html"
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
