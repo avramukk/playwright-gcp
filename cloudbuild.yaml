@@ -1,17 +1,18 @@
+#TODO: Try to skip install ffmpeg and see if it works
+
 steps:
   - name: 'mcr.microsoft.com/playwright:v1.40.0-jammy'
     env:
       - CI=true
     script: |
       #!/usr/bin/env bash
-      echo "Hello World"
+      echo "Hello from Playwright Cloud Build!"
       ls
       pwd
       npm install --yes
       npm ci
       npx playwright install --with-deps
       npx playwright test
-      ls
 # artifacts:
 #   objects:
 #     location: 'gs://${_BUCKET_NAME}/$TRIGGER_NAME'
