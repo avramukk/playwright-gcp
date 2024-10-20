@@ -1,0 +1,34 @@
+# This line specifies the official Playwright Docker image
+steps:
+
+# Install dependencies using npx
+- name: 'mcr.microsoft.com/playwright:v1.43.1-jammy'
+  args: ['npx', 'install']
+
+# Run Playwright tests using npx
+- name: 'mcr.microsoft.com/playwright:v1.43.1-jammy'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      npx playwright install chrome \
+      && npx playwright test
+  env:
+    - 'CI=true'
+  allowFailure: true
+
+# Upload the report to Google Cloud Storage
+- name: "gcr.io/cloud-builders/gcloud-slim"
+  args: [
+    "storage",
+    "cp",
+    "--recursive",
+    "playwright-report",
+    "gs://vierageorge-pw-poc/$BUILD_ID/",
+  ]
+
+# Parse the output to extract the public URL
+- name: 'bash'
+  args:
+    - '-c'  # Execute a shell command
+    - echo "https://storage.googleapis.com/vierageorge-pw-poc/$BUILD_ID/playwright-report/index.html"
