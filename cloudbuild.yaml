@@ -17,3 +17,5 @@ steps:
 #     location: 'gs://${_BUCKET_NAME}/$TRIGGER_NAME'
 #     paths:
 #       - playwright-report/*
+options:
+  logging: CLOUD_LOGGING_ONLY
